@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: veggie-bot
+    env: node
+    plan: free
+    buildCommand: "npm install"
+    startCommand: "npm start"
+    envVars:
+      - key: LINE_CHANNEL_ACCESS_TOKEN
+        sync: false
+      - key: LINE_CHANNEL_SECRET
+        sync: false
+      - key: TM_MODEL_URL
+        value: "https://teachablemachine.withgoogle.com/models/niE_crapD/model.json"
+      - key: TM_META_URL
+        value: "https://teachablemachine.withgoogle.com/models/niE_crapD/metadata.json"
+      - key: PORT
+        value: "3000"
+    healthCheckPath: "/"
