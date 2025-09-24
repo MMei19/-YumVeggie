@@ -27,7 +27,7 @@ export const veggiesInfo = {
   "Cucumber": {
     nameTH: "แตงกวา",
     benefit: "ช่วยเพิ่มความชุ่มชื้นให้ร่างกาย แคลอรีต่ำและมีไฟเบอร์",
-    menu: "แตงก้าวางเคียงอาหาร, ยำแตงกวา, ซุปแตงกวาเย็น, สลัดแตงกวา, แตงก้าผัดไข่"
+    menu: "แตงก้าวางเคียงอาหาร, ยำแตงกวา, ซุปแตงกวาเย็น, สลัดแตงกวา, แตงกวาผัดไข่"
   },
   "Potato": {
     nameTH: "มันฝรั่ง",
@@ -50,3 +50,50 @@ export const veggiesInfo = {
     menu: "ส้มตำมะเขือเทศ, ซุปมะเขือเทศ, แกงจืดมะเขือเทศ, พาสต้ามะเขือเทศ, มะเขือเทศย่าง"
   }
 };
+
+// alias สำหรับ map ชื่อให้ตรงฐานข้อมูล
+const aliases = {
+  // Capsicum
+  'bell pepper': 'Capsicum',
+  'sweet pepper': 'Capsicum',
+  'red pepper': 'Capsicum',
+  'green pepper': 'Capsicum',
+  'พริกหวาน': 'Capsicum',
+
+  // Cabbage
+  'กะหล่ำ': 'Cabbage',
+  'กะหล่ำปลี': 'Cabbage',
+
+  // Broccoli
+  'บร็อคโคลี่': 'Broccoli',
+  'บรอกโคลี': 'Broccoli',
+
+  // Carrot
+  'แครอท': 'Carrot',
+
+  // Cucumber
+  'แตงกวา': 'Cucumber',
+
+  // Potato
+  'มันฝรั่ง': 'Potato',
+
+  // Pumpkin
+  'ฟักทอง': 'Pumpkin',
+
+  // Radish
+  'หัวไชเท้า': 'Radish',
+
+  // Tomato
+  'มะเขือเทศ': 'Tomato'
+};
+
+// map ชื่อที่รับมา (EN/TH/สะกดหลากหลาย) → คีย์มาตรฐานใน veggiesInfo
+export function resolveVeggie(raw) {
+  if (!raw) return raw;
+  const key = raw.toString().trim();
+  if (veggiesInfo[key]) return key;
+  const lower = key.toLowerCase();
+  if (aliases[lower]) return aliases[lower];
+  if (aliases[key]) return aliases[key];
+  return key; // ถ้าไม่รู้จัก ก็คืนเดิมไปก่อน
+}
