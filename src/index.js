@@ -69,8 +69,7 @@ async function handleEvent(event) {
 
     if (/^ช่วย|วิธีใช้|help$/i.test(text)) {
       const guide =
-        `ส่งรูปผักให้บอททายชื่อ พร้อมประโยชน์และเมนู\n` +
-        `หรือพิมพ์: เพิ่มข้อมูล <ชื่อผักEN> ประโยชน์=<ข้อความ> เมนู=<ข้อความ>`;
+        `ส่งรูปผักให้บอททายชื่อ พร้อมประโยชน์และเมนู\n`;
       return client.replyMessage(event.replyToken, { type: 'text', text: guide });
     }
 
