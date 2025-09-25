@@ -38,18 +38,16 @@ async function handleEvent(event) {
   if (event.message.type === 'image') {
     try {
       const buf = await getMessageBuffer(client, event.message.id);
-      const { label, confidences } = await predictVeggie(buf);
+      const { label } = await predictVeggie(buf); // ไม่ต้องใช้ confidences แล้ว
 
       const info = veggiesInfo[label];
-      const confStr = confidences
-        .slice(0, 3)
-        .map(c => `${c.label}: ${(c.prob * 100).toFixed(1)}%`)
-        .join('\n');
 
       let shownName = label;
       if (info?.nameTH) shownName = `${label} (${info.nameTH})`;
 
-      let replyText = `🥬 ผักที่คาดว่าเป็น: ${shownName}\nความมั่นใจ (Top 3)\n${confStr}`;
+      // ไม่ใส่ Top 3 ความมั่นใจแล้ว
+      let replyText = `🥬 ผักที่คาดว่าเป็น: ${shownName}`;
+      
       if (info) {
         replyText += `\n\nประโยชน์: ${info.benefit}\nเมนูแนะนำ: ${info.menu}`;
       } else {
